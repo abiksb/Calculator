@@ -1,7 +1,8 @@
+import java.util.Set;
 class PostfixParser {
     Stack stack; //Stack for holding numbers (double) values on it
     String input; //String with expression in Postfix form and whitespaces between its elements
-    //String [] inputSplit; //String Array with expression in Postfix form
+    private static final Set<String> OPERATORS = Set.of("*", "/", "+", "-"); //Set of Strings with allowed operators
 
     //Basic constructor
     //Input: String with expression in Postfix form and whitespaces between its elements
@@ -13,8 +14,7 @@ class PostfixParser {
     //Method that splits String input expression with whitespaces into String array
     //Output: String array with expression
     String[] splitString(){
-        String[] inputSplit; //Tu czy w klasie calej?
-        return inputSplit = input.split(" ");
+        return input.split(" ");
     }
 
     //Method parses an expression in Postfix form
@@ -30,10 +30,7 @@ class PostfixParser {
         //Push numbers to double Stack, evaluate expression if operator appears
         for (String element : input){
             //If number or "r" (meaning previousResult)
-            if (!element.equals("*") &&
-                    !element.equals("/") &&
-                    !element.equals("+") &&
-                    !element.equals("-") ) {
+            if (!OPERATORS.contains(element) ) {
 
                 //If "r" push previousResult on the stack
                 if (element.equals("r")) {
@@ -74,6 +71,11 @@ class PostfixParser {
                 stack.push(result);
             }//else
         }//for each
+
+        //If only a number was provided for input parse it as result
+        if (result == 0 && !stack.isEmpty() ){
+            result = stack.pop();
+        }
 
         return result;
     }
