@@ -8,7 +8,6 @@ class InfixToPost {
     InfixToPost(String input) {
         this.input = input;
         stack = new Stack(input.length() ); //Creates a Stack for operators
-// Tutaj Stack bedzie mial dlugosc inputa, chociaz wiadomo, ze tyle nie bedzie potrzeba. Jest jakis trick na to?
     }
 
     //Method converts Infix form to Postfix form of expression
