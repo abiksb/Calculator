@@ -30,14 +30,14 @@ public class CalculatorInitializer {
                     calcBsc.show();
 
                     //Take input from user regarding operation for basic calculator
-                    calcBsc.command = input.nextInt();
+                    int calcBscCommand = input.nextInt();
 
                     //If user specified "go back", break from switch
-                    if (calcBsc.command == 5){
+                    if (calcBscCommand == 5){
                         break;
                     }
                     //Initialize basic calculator
-                    result = calcBsc.calculate(result);
+                    result = calcBsc.calculate(result, calcBscCommand);
 
                     //Ask user for his next decision
                     System.out.println("What to do next?");

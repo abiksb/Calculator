@@ -6,19 +6,19 @@ public class CalculatorString {
     double calculate(String input, double previousResult) {
 
         //Create an object with InfixToPost for converting Strings
-        InfixToPost inToPost = new InfixToPost(input);
+        InfixToPost inToPost = new InfixToPost();
+
+        //Create an InfixToPostModel object
+        InfixToPostModel model = new InfixToPostModel();
 
         //Convert expression String from Infix form to Postfix form with whitespaces between elements
-        String inputConverted = inToPost.convert();
+        String inputConverted = inToPost.convert(input, model);
 
         //Create an object with PostfixParser class for parsing the expression
-        PostfixParser postParser = new PostfixParser(inputConverted);
-
-        //Split by whitespaces String with expression in postfix form to String array
-        String[] inputSplit = postParser.splitString();
+        PostfixParser postParser = new PostfixParser();
 
         //Calculates result of expression
-        double result = postParser.evaluate(inputSplit, previousResult);
+        double result = postParser.evaluate(inputConverted, previousResult);
 
         //Print result
         System.out.println("Result of " + input + " is " + result);

@@ -1,12 +1,10 @@
 import java.util.Scanner; //Scanner for input streaming
 class CalculatorBasic {
 
-    int command; //for holding value for user's input for decision-making
-
     //Method  used for calculating based on command (type of operation) and user input.
     //Input previous result of calculations.
     //Output result of current calculations.
-    double calculate(double previousResult){
+    double calculate(double previousResult, int command){
 
         double num1; //for holding first number
         double num2; //for holding second number
