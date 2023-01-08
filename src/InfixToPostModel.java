@@ -2,7 +2,6 @@ public class InfixToPostModel {
 
     private Stack stack;
     private String output = "";
-    //private int Precedence;
 
     public Stack getStack() {
         return stack;
@@ -12,21 +11,11 @@ public class InfixToPostModel {
         this.stack = stack;
     }
 
-    public String getOutput(){
+    public String getOutput() {
         return output;
     }
 
-    public void setOutput(String output){
+    public void setOutput(String output) {
         this.output = output;
     }
-
-/*
-    public void setPrecedence (int Precedence){
-        this.Precedence = Precedence;
-    }
-
-    //public int getPrecedence(){
-        return Precedence;
-    }
-*/
 }

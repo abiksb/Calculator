@@ -1,71 +1,68 @@
 class InfixToPost {
-    //private String input; // String with Infix form of expression
-    //private String output = ""; //String with Postfix form of expression
-    //private Stack stack; //Stack for operators
-
-    /*
-    //Basic constructor
-    //Input: String with Infix form of expression
-    InfixToPost(String input) {
-        this.input = input;
-        stack = new Stack(input.length() ); //Creates a Stack for operators
-    }
-    */
-    //Basic constructor
     InfixToPost() {}
 
     //Method converts Infix form to Postfix form of expression
+    //Input: String to convert
     //Output: String output with Postfix form of expression with whitespaces between its elements
-    String convert(String input, InfixToPostModel model) {
+    String convert(String input) {
 
-        Stack stack = new Stack(input.length() );
-        model.setStack(stack);
+        //Create object with Stack and String output
+        InfixToPostModel toPostModel = new InfixToPostModel();
+
+        //Set operatorsStack to input length
+        Stack operatorsStack = new Stack(input.length() );
+
+        //Pytanie co lepsze w tej metodzie - set i get Stack uzywac. Czy ustawic operatorsStack jako public w modelu
+        //i uzywac np toPostmodel.operatorsStack.pop() bezposrednio?
+        toPostModel.setStack(operatorsStack);
 
         // Loop through every character of String input
         for (int i = 0; i < input.length(); i++) {
-            stack = model.getStack();
-            char ch = input.charAt(i); //Character at i position of input String
-            //Switch to determine what to do with character. I
-            switch (ch) {
-                //Instantly pushes ( on the stack
+
+            operatorsStack = toPostModel.getStack(); //update local operatorsStack
+            char currentEquationChar = input.charAt(i); //Character at i position of input String
+
+            //Switch to determine what to do with character.
+            switch (currentEquationChar) {
+                //Instantly pushes ( on the operatorsStack
                 case '(':
-                    stack.push(ch);
-                    model.setStack(stack);
+                    operatorsStack.push(currentEquationChar);
+                    toPostModel.setStack(operatorsStack);
                     break;
-                //Clears () from the stack
+                //Clears () from the operatorsStack
                 case ')':
-                    model = evaluateOperator(model);
-                    model.setStack(stack);
+                    toPostModel = evaluateOperator(toPostModel);
+                    toPostModel.setStack(operatorsStack);
                     break;
                 //Evaluates operators based on their Precedence
                 case '-':
                     // Check if number is negative
-                    //True when '-' is 1st in input or '(' is before
-                    if (model.getOutput().equals("") || input.charAt(i-1) == '('){
-                        model.setOutput(model.getOutput() + ch);
+                    // True when '-' is 1st in input or '(' is before
+                    if (toPostModel.getOutput().equals("") || input.charAt(i-1) == '('){
+                        toPostModel.setOutput(toPostModel.getOutput() + currentEquationChar);
                         break;
                     }
                 case '+':
                 case '*':
                 case '/':
                     //first evaluate Precedence, then what to do with operator
-                    model = evaluateOperator(ch, evaluatePrecedence(ch), model);
-                    model.setStack(stack);
+                    toPostModel = evaluateOperator(currentEquationChar, evaluatePrecedence(currentEquationChar), toPostModel);
+                    toPostModel.setStack(operatorsStack);
                     break;
                 default:
                     //for numbers and . add to the output String
-                    model.setOutput(model.getOutput() + ch);
+                    toPostModel.setOutput(toPostModel.getOutput() + currentEquationChar);
                     break;
             } //for loop
         } //switch
 
-        stack = model.getStack();
+        operatorsStack = toPostModel.getStack();
         //If anything remains on the Stack add it to the output now
-        while (!stack.isEmpty()) {
-            model.setOutput(model.getOutput() + " " + (char) stack.pop() );
+        while (!operatorsStack.isEmpty()) {
+            toPostModel.setOutput(toPostModel.getOutput() + " " + (char) operatorsStack.pop() );
         }
         //Return expression in Postfix form with whitespaces between its elements
-        return model.getOutput();
+        return toPostModel.getOutput();
     }
 
     //Method evaluates Precedence of an operator
@@ -90,51 +87,56 @@ class InfixToPost {
     }
 
     //Method evaluates whether to put operator on the Stack or add to output String
-    //Input: Operator and its precedence
-    InfixToPostModel evaluateOperator(char currentOperator, int currentPrecedence, InfixToPostModel model) {
+    //Input: Operator, its precedence, infixToPostModel with operatorsStack and output String
+    //Output: infixToPostModel with operatorsStack and output String
+    InfixToPostModel evaluateOperator(char currentOperator, int currentPrecedence, InfixToPostModel infixToPostModel) {
 
-        Stack stack = model.getStack();
-        //String output = model.getOutput();
-        //int precedence = model.getPrecedence();
+        //Get Stack with current operators
+        Stack operatorsStack = infixToPostModel.getStack();
 
         //Check if there is something on the stack
-        if (!stack.isEmpty()) {
+        if (!operatorsStack.isEmpty()) {
             //Check the last operator on the stack and evaluate its Precedence
-            char previousOperator = (char) stack.whatsOnTop();
+            char previousOperator = (char) operatorsStack.whatsOnTop();
             int previousPrecedence = evaluatePrecedence(previousOperator);
 
             //If current Operator has higher priority than one on the stack, put one from the stack into output
             if (currentPrecedence >= previousPrecedence) {
-                model.setOutput(model.getOutput() + " " + (char) stack.pop() );
+                //Lepiej takie sety i gety zagmatwane czy na poczatku String osobny stworzyc / publiczny Output w modelu?
+                infixToPostModel.setOutput(infixToPostModel.getOutput() + " " + (char) operatorsStack.pop() );
             }
         }
         //Push current operator to the Stack regardless
-        stack.push(currentOperator);
+        operatorsStack.push(currentOperator);
 
-        model.setStack(stack);
-        model.setOutput(model.getOutput()  + " ");
+        //Update infixToPostModel before returning it
+        infixToPostModel.setStack(operatorsStack);
+        infixToPostModel.setOutput(infixToPostModel.getOutput()  + " ");
 
-        return model;
+        return infixToPostModel;
     }
 
     //@Override
     //Method adds content of Parenthesis to the output String
-    //Input: a single ( char
-    InfixToPostModel evaluateOperator(InfixToPostModel model) {
+    //Input: InfixToPostModel object with operatorsStack and output String
+    InfixToPostModel evaluateOperator(InfixToPostModel infixToPostModel) {
         // Dodac sprawdzenie czy istnieje lewy nawias na stacku!
 
-        Stack stack = model.getStack();
-        String output = model.getOutput();
+        //Get operatorsStack and output String from Model object
+        Stack operatorsStack = infixToPostModel.getStack();
+        String output = infixToPostModel.getOutput();
 
-        // Until ( occurs on the stack add operators from the stack to output String
-        while ( (char) stack.whatsOnTop() != '(') {
-           model.setOutput(output + " " + (char) stack.pop() );
+        // Until ( occurs on the operatorsStack add operators from the operatorsStack to output String
+        while ( (char) operatorsStack.whatsOnTop() != '(') {
+           infixToPostModel.setOutput(output + " " + (char) operatorsStack.pop() );
        }
 
-        stack.pop(); //get rid of left Parenthisis from the stack
+        //Get rid of left Parenthisis from the operatorsStack
+        operatorsStack.pop();
 
-        model.setStack(stack);
+        //update opertorsStack before returning infixToPostModel
+        infixToPostModel.setStack(operatorsStack);
 
-        return model;
+        return infixToPostModel;
     }
 }

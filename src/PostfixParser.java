@@ -1,36 +1,18 @@
 import java.util.Set;
 class PostfixParser {
-    //Stack stack; //Stack for holding numbers (double) values on it
-    //String input; //String with expression in Postfix form and whitespaces between its elements
 
-    /*
-    //Basic constructor
-    //Input: String with expression in Postfix form and whitespaces between its elements
-    PostfixParser(String input){
-        this.input = input;
-        stack = new Stack(input.length() ); //Stack to hold numbers
-    }
-*/
-    /*
-    //Method that splits String input expression with whitespaces into String array
-    //Output: String array with expression
-    String[] splitString(){
-        return input.split(" ");
-    }
-    */
+    //Set of Strings with allowed operators
+    private static final Set<String> OPERATORS = Set.of("*", "/", "+", "-");
 
     //Method parses an expression in Postfix form
     //Input: Array of Strings with expression, double with previous result
     //Output: Double result of parsing
-    double evaluate(String input, double previousResult){
+    public double evaluate(String input, double previousResult){
 
         Stack stack = new Stack(input.length() ); //Stack for holding numbers (double) values on it
 
         //Split by whitespaces String with expression in postfix form to String array
         String [] inputSplit = input.split(" ");
-
-        //Set of Strings with allowed operators
-        final Set<String> OPERATORS = Set.of("*", "/", "+", "-");
 
         double firstOperand; // double to keep value of first operand
         double secondOperand; //double to keep value of second operand

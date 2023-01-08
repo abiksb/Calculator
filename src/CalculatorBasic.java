@@ -1,10 +1,10 @@
 import java.util.Scanner; //Scanner for input streaming
 class CalculatorBasic {
 
-    //Method  used for calculating based on command (type of operation) and user input.
-    //Input previous result of calculations.
-    //Output result of current calculations.
-    double calculate(double previousResult, int command){
+    //Method  used for calculating based on supplied type of operation and user input.
+    //Input: previous result of calculations, type of operation
+    //Output: result of current calculations.
+    public double calculate(double previousResult, int operationType){
 
         double num1; //for holding first number
         double num2; //for holding second number
@@ -14,7 +14,7 @@ class CalculatorBasic {
         Scanner input = new Scanner(System.in); // initialize console read-in
 
         //Enter num1 and num2 only if proper operation is chosen
-        if (command >= 1 && command < 5) {
+        if (operationType >= 1 && operationType < 5) {
 
             //Print instructions
             System.out.println("Enter your first number. Type \"r\" to use previous result.");
@@ -47,18 +47,20 @@ class CalculatorBasic {
             }
 
             //Use evaluate method for obtaining result
-            result = evaluate(num1, num2, command);
+            result = evaluate(num1, num2, operationType);
+
         }
         return result;
     }
 
     //Method for evaluation of results
-    //Input: 1st number, 2nd number, command for operation type
+    //Input: 1st number, 2nd number, operation type
     //Output: double with result value
-    double evaluate(double num1, double num2, int command) {
+    private double evaluate(double num1, double num2, int operationType) {
+
         double result= 0;
 
-        switch (command) {
+        switch (operationType) {
             case 1: //addition
                 result = num1 + num2;
                 System.out.println(num1 + " + " + num2 + " = " + result);
@@ -77,15 +79,5 @@ class CalculatorBasic {
                 break;
         }
         return result;
-    }
-
-    //Method prints choices that user has regarding operation types
-    void show(){
-        System.out.println("Choose an operation:");
-        System.out.println("1 - addition;");
-        System.out.println("2 - subtraction;");
-        System.out.println("3 - multiplication;");
-        System.out.println("4 - division;");
-        System.out.println("5 - go back.");
     }
 }
