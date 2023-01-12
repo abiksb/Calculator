@@ -1,15 +1,22 @@
+package com.example.calculator;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.Set;
-class PostfixParser {
+@Component
+public class PostfixParser {
 
     //Set of Strings with allowed operators
-    private static final Set<String> OPERATORS = Set.of("*", "/", "+", "-");
+    private static final Set<String> OPERATORS = Set.of("*", "/", "+", "-", "_");
 
     //Method parses an expression in Postfix form
     //Input: Array of Strings with expression, double with previous result
     //Output: Double result of parsing
+
     public double evaluate(String input, double previousResult){
 
-        Stack stack = new Stack(input.length() ); //Stack for holding numbers (double) values on it
+        Stack numbersStack = new Stack(input.length() ); //Stack for holding numbers (double) values on it
 
         //Split by whitespaces String with expression in postfix form to String array
         String [] inputSplit = input.split(" ");
@@ -24,20 +31,20 @@ class PostfixParser {
             //If number or "r" (meaning previousResult)
             if (!OPERATORS.contains(element) ) {
 
-                //If "r" push previousResult on the stack
+                //If "r" push previousResult on the numbersStack
                 if (element.equals("r")) {
-                    stack.push(previousResult);
+                    numbersStack.push(previousResult);
                 }
                 else {
                     //Parse String to double, push it on the Stack
-                    stack.push(Double.parseDouble(element));
+                    numbersStack.push(Double.parseDouble(element));
                 }
             }
             //If operator
             else{
-                //Get both operands from the stack. Second operand is on the top
-                secondOperand = stack.pop();
-                firstOperand = stack.pop();
+                //Get both operands from the numbersStack. Second operand is on the top
+                secondOperand = numbersStack.pop();
+                firstOperand = numbersStack.pop();
 
                 //Switch determining operation type
                 switch(element) {
@@ -50,6 +57,7 @@ class PostfixParser {
                         result = firstOperand / secondOperand;
                         break;
                     //Addition
+                    case "_":
                     case "+":
                         result = firstOperand + secondOperand;
                         break;
@@ -59,14 +67,14 @@ class PostfixParser {
                         break;
                 }//switch
 
-                //Push the result back onto the stack
-                stack.push(result);
+                //Push the result back onto the numbersStack
+                numbersStack.push(result);
             }//else
         }//for each
 
         //If only a number was provided for input parse it as result
-        if (result == 0 && !stack.isEmpty() ){
-            result = stack.pop();
+        if (result == 0 && !numbersStack.isEmpty() ){
+            result = numbersStack.pop();
         }
 
         return result;

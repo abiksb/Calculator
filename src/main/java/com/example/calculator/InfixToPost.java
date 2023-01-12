@@ -1,10 +1,16 @@
-class InfixToPost {
+package com.example.calculator;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Component
+public class InfixToPost {
     InfixToPost() {}
 
     //Method converts Infix form to Postfix form of expression
     //Input: String to convert
     //Output: String output with Postfix form of expression with whitespaces between its elements
-    String convert(String input) {
+    public String convert(String input) {
 
         //Create object with Stack and String output
         InfixToPostModel toPostModel = new InfixToPostModel();
@@ -34,6 +40,7 @@ class InfixToPost {
                     toPostModel = evaluateOperator(toPostModel);
                     toPostModel.setStack(operatorsStack);
                     break;
+
                 //Evaluates operators based on their Precedence
                 case '-':
                     // Check if number is negative
@@ -43,6 +50,7 @@ class InfixToPost {
                         break;
                     }
                 case '+':
+                case '_':
                 case '*':
                 case '/':
                     //first evaluate Precedence, then what to do with operator
@@ -68,7 +76,7 @@ class InfixToPost {
     //Method evaluates Precedence of an operator
     //Input: a single operator
     //Output: Precedence. Lower precedence means higher priority
-    int evaluatePrecedence(char Operator) {
+    private int evaluatePrecedence(char Operator) {
         int precedence = 0; //Initializes int precedence tutaj czy w kazdym case?
           switch (Operator) {
             case '*':
@@ -77,6 +85,7 @@ class InfixToPost {
                 break;
             case '-':
             case '+':
+            case '_':
                 precedence = 2;
                 break;
             case '(':
@@ -89,7 +98,7 @@ class InfixToPost {
     //Method evaluates whether to put operator on the Stack or add to output String
     //Input: Operator, its precedence, infixToPostModel with operatorsStack and output String
     //Output: infixToPostModel with operatorsStack and output String
-    InfixToPostModel evaluateOperator(char currentOperator, int currentPrecedence, InfixToPostModel infixToPostModel) {
+    private InfixToPostModel evaluateOperator(char currentOperator, int currentPrecedence, InfixToPostModel infixToPostModel) {
 
         //Get Stack with current operators
         Stack operatorsStack = infixToPostModel.getStack();
@@ -119,7 +128,7 @@ class InfixToPost {
     //@Override
     //Method adds content of Parenthesis to the output String
     //Input: InfixToPostModel object with operatorsStack and output String
-    InfixToPostModel evaluateOperator(InfixToPostModel infixToPostModel) {
+    private InfixToPostModel evaluateOperator(InfixToPostModel infixToPostModel) {
         // Dodac sprawdzenie czy istnieje lewy nawias na stacku!
 
         //Get operatorsStack and output String from Model object

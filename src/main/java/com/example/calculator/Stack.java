@@ -1,4 +1,6 @@
-class Stack {
+package com.example.calculator;
+
+public class Stack {
 
     //Tutaj wszystko musi byc public/default no nie?
     private int top; //Position of the last item of the stack

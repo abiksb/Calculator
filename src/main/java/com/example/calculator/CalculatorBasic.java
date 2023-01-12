@@ -1,5 +1,11 @@
+package com.example.calculator;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.Scanner; //Scanner for input streaming
-class CalculatorBasic {
+@Component
+public class CalculatorBasic {
 
     //Method  used for calculating based on supplied type of operation and user input.
     //Input: previous result of calculations, type of operation

@@ -1,15 +1,25 @@
+package com.example.calculator;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Scanner; //Scanner for input streaming
+@Component
+//Czy to @Service dac, jesli tylko w main jest tworzone?
 public class CalculatorInitializer {
+
+    //Creates objects for basic calculator and for calculator based on strings
+    @Autowired
+    private CalculatorBasic calculatorBasic;
+
+    @Autowired
+    private CalculatorString calculatorString;
 
     //Method initializes the calculator sequence
     public void CalculatorStart(){
 
         //Create object for input stream
         Scanner input = new Scanner(System.in);
-
-        //Creates objects for basic calculator and for calculator based on strings
-        CalculatorBasic calculatorBasic = new CalculatorBasic();
-        CalculatorString calculatorString = new CalculatorString();
 
         //Czy nazwac zmienna previousResult, zeby bylo jasniej? Pozniej ejst metoda result = ...(..., result)
         double result = 0; //double for holding result value
