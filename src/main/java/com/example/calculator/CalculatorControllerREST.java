@@ -19,7 +19,7 @@ public class CalculatorControllerREST {
     //Czy Controller może być stanowy, czy nie powinien?
     private List<Double> previousResultsList = new Vector<>();
 
-    @GetMapping("/calculateREST")
+    @GetMapping("/calculator/calculateREST")
     public CalculatorRestRepresentation calculate(@RequestParam(value = "expression", defaultValue = "0") String
                                                     expression, @RequestParam(value = "id", defaultValue = "") Integer previousResultId){
 
