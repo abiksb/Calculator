@@ -14,13 +14,13 @@ public class CalculatorControllerMVC {
     @Autowired
     private CalculatorString calculatorString;
 
-    @GetMapping("/")
+    @GetMapping(value = {"", "/", "/calculator"} )
     public String getCalculator(){
-        return "calculator1.html";
+        return "calculator.html";
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/response")
     public String calculate(@RequestParam("expression") String expression, Model model){
 
     double result = calculatorString.calculate(expression, 0);
