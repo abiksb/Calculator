@@ -1,11 +1,11 @@
 package com.example.calculator;
 
+import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Scanner; //Scanner for input streaming
-@Component
-//Czy to @Service dac, jesli tylko w main jest tworzone?
+@Service
 public class CalculatorInitializer {
 
     //Creates objects for basic calculator and for calculator based on strings
@@ -19,7 +19,7 @@ public class CalculatorInitializer {
     public void CalculatorStart(){
 
         //Create object for input stream
-        Scanner input = new Scanner(System.in);
+        @Cleanup Scanner input = new Scanner(System.in);
 
         //Czy nazwac zmienna previousResult, zeby bylo jasniej? Pozniej ejst metoda result = ...(..., result)
         double result = 0; //double for holding result value
@@ -82,8 +82,6 @@ public class CalculatorInitializer {
             System.out.println("Thank you for using our application");
             System.out.print("Exiting.");
 
-            //Close input stream
-            input.close();
         } //CalculatorStart() method
 
     //Method prints choices that user has regarding calculator types

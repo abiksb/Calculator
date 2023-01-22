@@ -1,10 +1,10 @@
 package com.example.calculator;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CalculatorString {
 
     //Create an object with InfixToPost for converting Strings
@@ -18,7 +18,7 @@ public class CalculatorString {
     //Method that evaluates expression based on provided String.
     //Input: String with expression where "r" is intended for previous result, double with previous result.
     //Output: double with result of calculations.
-    public double calculate(String input, double previousResult) {
+    public double calculate(@NonNull String input, double previousResult) {
 
         //Convert expression String from Infix form to Postfix form with whitespaces between elements
         String inputConverted = inToPost.convert(input);

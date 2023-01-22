@@ -1,5 +1,7 @@
 package com.example.calculator;
 
+import lombok.NonNull;
+
 public class Stack {
 
     //Tutaj wszystko musi byc public/default no nie?
@@ -11,7 +13,7 @@ public class Stack {
 
     //Basic constructor
     //input: size of the Stack
-    public Stack(int size) {
+    public Stack(@NonNull int size) {
         doubleArray = new double[size]; //initialize array according to the size
         top = -1; //meaning Stack is empty when created
     }

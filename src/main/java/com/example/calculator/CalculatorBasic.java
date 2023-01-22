@@ -1,15 +1,18 @@
 package com.example.calculator;
 
-import org.springframework.stereotype.Component;
+import lombok.Cleanup;
+import lombok.NonNull;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner; //Scanner for input streaming
-@Component
+@Service
 public class CalculatorBasic {
 
     //Method  used for calculating based on supplied type of operation and user input.
     //Input: previous result of calculations, type of operation
     //Output: result of current calculations.
+    @NonNull
     public double calculate(double previousResult, int operationType){
 
         double num1; //for holding first number
@@ -17,7 +20,7 @@ public class CalculatorBasic {
 
         double result = 0; //for holding resulting value
 
-        Scanner input = new Scanner(System.in); // initialize console read-in
+        @Cleanup Scanner input = new Scanner(System.in); // initialize console read-in
 
         //Enter num1 and num2 only if proper operation is chosen
         if (operationType >= 1 && operationType < 5) {

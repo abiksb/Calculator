@@ -1,16 +1,17 @@
 package com.example.calculator;
 
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
+@NoArgsConstructor
 @Component
 public class InfixToPost {
-    InfixToPost() {}
 
     //Method converts Infix form to Postfix form of expression
     //Input: String to convert
     //Output: String output with Postfix form of expression with whitespaces between its elements
-    public String convert(String input) {
+    public String convert(@NonNull String input) {
 
         //Create object with Stack and String output
         InfixToPostModel toPostModel = new InfixToPostModel();

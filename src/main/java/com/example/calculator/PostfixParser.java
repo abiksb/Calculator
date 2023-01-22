@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,8 @@ public class PostfixParser {
     //Input: Array of Strings with expression, double with previous result
     //Output: Double result of parsing
 
-    public double evaluate(String input, double previousResult){
+
+    public double evaluate(@NonNull String input, double previousResult){
 
         Stack numbersStack = new Stack(input.length() ); //Stack for holding numbers (double) values on it
 

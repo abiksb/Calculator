@@ -13,11 +13,5 @@ public class CalculatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CalculatorApplication.class, args);
 
-		//CalculatorRestController calculatorRestController = new CalculatorRestController();
-		//calculatorRestController.control();
-
-		//CalculatorInitializer calculatorInitializer = new CalculatorInitializer();
-		//Starts calculator sequence
-		//calculatorInitializer.CalculatorStart();
 	}
 }
