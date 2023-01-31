@@ -1,10 +1,14 @@
 package com.example.calculator;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class CalculatorString {
 
     //Create an object with InfixToPost for converting Strings
