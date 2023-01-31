@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.Services;
 
 import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Autowired;

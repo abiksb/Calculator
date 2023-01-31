@@ -1,5 +1,6 @@
-package com.example.calculator;
+package com.example.calculator.Controllers;
 
+import com.example.calculator.Services.CalculatorString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
