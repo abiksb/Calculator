@@ -1,11 +1,10 @@
 package com.example.calculator;
 
 import lombok.NonNull;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-@Component
+@Service
 public class PostfixParser {
 
     //Set of Strings with allowed operators

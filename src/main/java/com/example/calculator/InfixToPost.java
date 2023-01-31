@@ -2,10 +2,9 @@ package com.example.calculator;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 @NoArgsConstructor
-@Component
+@Service
 public class InfixToPost {
 
     //Method converts Infix form to Postfix form of expression
@@ -39,7 +38,6 @@ public class InfixToPost {
                 //Clears () from the operatorsStack
                 case ')':
                     toPostModel = evaluateOperator(toPostModel);
-                    toPostModel.setStack(operatorsStack);
                     break;
 
                 //Evaluates operators based on their Precedence
@@ -56,7 +54,6 @@ public class InfixToPost {
                 case '/':
                     //first evaluate Precedence, then what to do with operator
                     toPostModel = evaluateOperator(currentEquationChar, evaluatePrecedence(currentEquationChar), toPostModel);
-                    toPostModel.setStack(operatorsStack);
                     break;
                 default:
                     //for numbers and . add to the output String
@@ -130,15 +127,14 @@ public class InfixToPost {
     //Method adds content of Parenthesis to the output String
     //Input: InfixToPostModel object with operatorsStack and output String
     private InfixToPostModel evaluateOperator(InfixToPostModel infixToPostModel) {
-        // Dodac sprawdzenie czy istnieje lewy nawias na stacku!
+        // TODO Dodac sprawdzenie czy istnieje lewy nawias na stacku!
 
         //Get operatorsStack and output String from Model object
         Stack operatorsStack = infixToPostModel.getStack();
-        String output = infixToPostModel.getOutput();
 
         // Until ( occurs on the operatorsStack add operators from the operatorsStack to output String
         while ( (char) operatorsStack.whatsOnTop() != '(') {
-           infixToPostModel.setOutput(output + " " + (char) operatorsStack.pop() );
+           infixToPostModel.setOutput(infixToPostModel.getOutput() + " " + (char) operatorsStack.pop() );
        }
 
         //Get rid of left Parenthisis from the operatorsStack
